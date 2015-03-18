@@ -40,12 +40,13 @@ public class Login extends JFrame {
 		actionlogin();
 	}
 
+	@SuppressWarnings("static-access")
 	public void actionlogin(){
 		blogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				String puname = txuser.getText();
 				String ppaswd = pass.getText();
-				@SuppressWarnings("static-access")
+
 				ArrayList<User> users = SingletonSession.getInstance().getUsers();
 				if((users.size() > 0)){
 					for (User user : users) {

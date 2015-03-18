@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="C:/Users/andrea/Desktop/carol/MySQLConnector/mysql-connector-java-5.1.34/mysql-connector-java-5.1.34-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/andrea/Desktop/carol/Mix4U/jEN.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andrea/Desktop/carol/workspace_java/repositorio/Mix4U/json_simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andrea/Desktop/carol/workspace_java/repositorio/Mix4U/jFuzzyLogic.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,0 +1,60 @@
+/*
+	Example: A tip calculation FIS (fuzzy inference system)
+	Calculates tip based on 'servie' and 'food'
+
+	If you want to about this example (and fuzzy logic), please 
+	read Matlab's tutorial on fuzzy logic toolbox 
+	http://www.mathworks.com/access/helpdesk/help/pdf_doc/fuzzy/fuzzy.pdf
+
+									Pablo Cingolani 
+									pcingola@users.sourceforge.net
+*/
+
+FUNCTION_BLOCK tipper	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	danceability : REAL;
+	energy : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	mood : REAL;
+END_VAR
+
+FUZZIFY danceability			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM low := (0, 1) (0.4, 0) ; 
+	TERM medium_low := (0.3, 0) (0.4, 1) (0.55,0);
+	TERM medium_high := (0.4, 0) (0.55, 1) (0.7, 0);
+	TERM high := (0.6, 0) (0.8, 1) (0.9, 1);
+END_FUZZIFY
+
+FUZZIFY energy			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := (0, 1) (0.4, 0) ; 
+	TERM medium_low := (0.3, 0)(0.4, 1) (0.55,0);
+	TERM medium_high := (0.4, 0) (0.55, 1) (0.7, 0);
+	TERM high := (0.7, 0) (0.8, 1) (0.9, 1);
+END_FUZZIFY
+
+DEFUZZIFY mood			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM blue := (0,1) (0.55,0);
+	TERM chill := (0.4,0) (0.45,1) (0.55,0);
+	TERM happy := (0.55,0) (0.6, 1) (0.7,0);
+	TERM party := (0.6,0) (0.7, 1) (0.9, 1);
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+
+	RULE 1 : IF danceability IS low AND energy IS low THEN mood IS blue;
+	RULE 2 : IF danceability IS low AND energy IS medium_low THEN mood IS blue;
+	RULE 3 : IF danceability IS medium_low AND energy IS medium_low THEN mood IS chill;
+	RULE 4 : IF danceability IS medium_high AND energy IS medium_high THEN mood IS happy; 
+	RULE 5 : IF danceability IS high AND energy IS high THEN mood IS party; 
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
