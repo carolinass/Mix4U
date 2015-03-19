@@ -14,7 +14,7 @@ import net.sourceforge.jFuzzyLogic.FunctionBlock;
 public class TestTipper {
     public static void main(String[] args) throws Exception {
         // Load from 'FCL' file
-        String fileName = "tipper.fcl";
+        String fileName = "recommender.fcl";
         FIS fis = FIS.load(fileName,true);
 
         // Error while loading?
@@ -28,15 +28,17 @@ public class TestTipper {
         JFuzzyChart.get().chart(functionBlock);
 
         // Set inputs
-        fis.setVariable("service", 3);
-        fis.setVariable("food", 7);
+        fis.setVariable("danceability", 0.6);
+        fis.setVariable("energy", 0.6);
 
         // Evaluate
         fis.evaluate();
 
         // Show output variable's chart
-        Variable tip = functionBlock.getVariable("tip");
-        JFuzzyChart.get().chart(tip, tip.getDefuzzifier(), true);
+        Variable tip = functionBlock.getVariable("mood");
+        System.out.println("DEFUUUUZZ");
+        System.out.println(tip.getDefuzzifier().defuzzify());
+        //JFuzzyChart.get().chart(tip, tip.getDefuzzifier(), true);
 
         // Print ruleSet
         System.out.println(fis);
