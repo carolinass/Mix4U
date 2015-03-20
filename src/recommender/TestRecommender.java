@@ -24,8 +24,8 @@ public class TestRecommender {
         JFuzzyChart.get().chart(functionBlock);
 
         // Set inputs
-        fis.setVariable("danceability", 0.6);
-        fis.setVariable("energy", 0.6);
+        fis.setVariable("danceability", 0.922535);
+        fis.setVariable("energy", 0.512786);
 
         // Evaluate
         fis.evaluate();
@@ -37,6 +37,6 @@ public class TestRecommender {
         //JFuzzyChart.get().chart(tip, tip.getDefuzzifier(), true);
 
         // Print ruleSet
-        System.out.println(fis);
+        //System.out.println(fis);
     }
 }

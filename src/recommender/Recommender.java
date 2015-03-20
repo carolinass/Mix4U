@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import net.sourceforge.jFuzzyLogic.FIS;
+import net.sourceforge.jFuzzyLogic.FunctionBlock;
+import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
+import net.sourceforge.jFuzzyLogic.rule.Variable;
 import models.User;
 
 import com.echonest.api.v4.Artist;
@@ -28,6 +32,37 @@ public class Recommender {
 		return null;
 	}
 	
+	public double getDefuzzfier(Song song) throws EchoNestException{
+		String fileName = "recommender.fcl";
+        FIS fis = FIS.load(fileName,true);
+        
+        if( fis == null ) { 
+            System.err.println("Can't load file: '" + fileName + "'");
+            return -1;
+        }
+        
+        FunctionBlock functionBlock = fis.getFunctionBlock(null);
+
+        // Set inputs
+        fis.setVariable("danceability", song.getDanceability());
+        fis.setVariable("energy", song.getEnergy());
+        // Evaluate
+        fis.evaluate();
+
+        // Show output variable's chart
+        Variable mood = functionBlock.getVariable("mood");
+        System.out.println("DEFUUUUZZ: " + mood.getDefuzzifier().defuzzify());
+        //JFuzzyChart.get().chart(tip, tip.getDefuzzifier(), true);
+
+		return mood.getDefuzzifier().defuzzify();
+	}
+	
+	public boolean isBlue(Song song) throws EchoNestException{
+		if(getDefuzzfier(song) < 0.4) return true;
+		return false;
+	}
+	
+	/*
 	public boolean isBlue(Song song) throws EchoNestException{
 		if (isLow(song.getDanceability()) &&  isLow(song.getEnergy())){
 			return true;
@@ -36,6 +71,7 @@ public class Recommender {
 		}else
 		return false;
 	}
+	*/
 	
 	public boolean isLow(double i){
 		if( (i >= 0) && (i <= 0.4)) return true;

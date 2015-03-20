@@ -19,6 +19,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		EchoNestAPI echon = new EchoNestAPI("23NNCDLPWYKIO3XNK");
+		Recommender r = new Recommender();
 		ArtistParams p = new ArtistParams();
         p.addGenre("folk");
 		try {
@@ -29,12 +30,15 @@ public class Main {
 			e1.printStackTrace();
 		}
 		try {
-			List<Artist> lista = echon.searchArtists("ariana grande");
-			Artist madonna = lista.get(0);
-			System.out.println("Similar to regina spektor");
-			System.out.println(madonna.getSimilar(10));
-			for (Song song : madonna.getSongs()) {
+			List<Artist> lista = echon.searchArtists("regina spektor");
+			Artist artist = lista.get(0);
+			//System.out.println("Similar to regina spektor");
+			//System.out.println(madonna.getSimilar(10));
+			for (Song song : artist.getSongs()) {
 				System.out.println(song.getTitle() + " - " + song.getDanceability() + " - " + song.getEnergy() + " - " + song.getLoudness());
+				if (r.isBlue(song)) {
+					System.out.println("IS BLUE: " + song.getTitle());
+				}
 				
 			}
 		} catch (EchoNestException e) {
