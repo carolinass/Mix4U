@@ -11,16 +11,16 @@ END_VAR
 
 FUZZIFY danceability			// Fuzzify input variable 'danceability'
 	TERM low := (0, 1) (0.2, 1) (0.4, 0); 
-	TERM medium_low := (0.3, 0) (0.4, 1) (0.55,0);
-	TERM medium_high := (0.5, 0) (0.55, 1) (0.7, 0);
-	TERM high := (0.69, 0) (0.8, 1) (1, 1);
+	TERM medium_low := (0.3, 0) (0.4, 1) (0.6,0);
+	TERM medium_high := (0.6, 0) (0.7, 1) (0.8, 0);
+	TERM high := (0.7, 0) (0.8, 1) (1, 1);
 END_FUZZIFY
 
 FUZZIFY energy			// Fuzzify input variable 'energy'
 	TERM low := (0, 1) (0.2, 1) (0.4, 0); 
-	TERM medium_low := (0.3, 0) (0.4, 1) (0.55,0);
-	TERM medium_high := (0.5, 0) (0.55, 1) (0.7, 0);
-	TERM high := (0.69, 0) (0.8, 1) (1, 1);
+	TERM medium_low := (0.3, 0) (0.4, 1) (0.6,0);
+	TERM medium_high := (0.6, 0) (0.7, 1) (0.8, 0);
+	TERM high := (0.7, 0) (0.8, 1) (1, 1);
 END_FUZZIFY
 
 DEFUZZIFY mood			// Defuzzify output variable 'mood'
@@ -47,9 +47,9 @@ RULEBLOCK No1
 	RULE 9 : IF danceability IS medium_high AND energy IS low THEN mood IS happy;
 	RULE 10 : IF danceability IS medium_high AND energy IS medium_low THEN mood IS happy;
 	RULE 11 : IF danceability IS medium_high AND energy IS medium_high THEN mood IS happy;
-	RULE 12 : IF danceability IS medium_high AND energy IS high THEN mood IS party;
+	RULE 12 : IF danceability IS medium_high AND energy IS high THEN mood IS happy;
 	RULE 13 : IF danceability IS high AND energy IS low THEN mood IS happy;
-	RULE 14 : IF danceability IS high AND energy IS medium_low THEN mood IS happy;
+	RULE 14 : IF danceability IS high AND energy IS medium_low THEN mood IS party;
 	RULE 15 : IF danceability IS high AND energy IS high THEN mood IS party; 
 	RULE 16 : IF danceability IS high AND energy IS medium_high THEN mood IS party;
 	

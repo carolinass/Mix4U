@@ -24,19 +24,13 @@ public class TestRecommender {
         JFuzzyChart.get().chart(functionBlock);
 
         // Set inputs
-        fis.setVariable("danceability", 0.529134);
+        fis.setVariable("danceability", 0.629134);
         fis.setVariable("energy", 0.735902);
-
-        // Evaluate
         fis.evaluate();
 
         // Show output variable's chart
         Variable tip = functionBlock.getVariable("mood");
         System.out.println("DEFUUUUZZ");
         System.out.println(tip.getDefuzzifier().defuzzify());
-        //JFuzzyChart.get().chart(tip, tip.getDefuzzifier(), true);
-
-        // Print ruleSet
-        //System.out.println(fis);
     }
 }
