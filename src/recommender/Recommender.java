@@ -62,6 +62,24 @@ public class Recommender {
 		return false;
 	}
 	
+	public boolean isChill(Song song) throws EchoNestException{
+		double defuzz = getDefuzzfier(song);
+		if((defuzz > 0.3) && (defuzz < 0.5)) return true;
+		return false;
+	}
+	
+	public boolean isHappy(Song song) throws EchoNestException{
+		double defuzz = getDefuzzfier(song);
+		if( (defuzz >= 0.5) && (defuzz < 0.7) ) return true;
+		return false;
+	}
+	
+	public boolean isParty(Song song) throws EchoNestException{
+		double defuzz = getDefuzzfier(song);
+		if( (defuzz >= 0.7) ) return true;
+		return false;
+	}
+	
 	/*
 	public boolean isBlue(Song song) throws EchoNestException{
 		if (isLow(song.getDanceability()) &&  isLow(song.getEnergy())){
@@ -71,7 +89,7 @@ public class Recommender {
 		}else
 		return false;
 	}
-	*/
+	
 	
 	public boolean isLow(double i){
 		if( (i >= 0) && (i <= 0.4)) return true;
@@ -92,4 +110,6 @@ public class Recommender {
 		if(i > 7) return true;
 		return false;
 	}
+	
+	*/
 }

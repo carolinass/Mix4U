@@ -36,16 +36,16 @@ public class Main {
 			//System.out.println(madonna.getSimilar(10));
 			for (Song song : artist.getSongs()) {
 				System.out.println(song.getTitle() + " - " + song.getDanceability() + " - " + song.getEnergy() + " - " + song.getLoudness());
-				if (r.isBlue(song)) {
-					System.out.println("IS BLUE: " + song.getTitle());
-				}
-				
+				if (r.isBlue(song)) System.out.println("IS BLUE: " + song.getTitle());
+				else if (r.isChill(song)) System.out.println("IS CHILL: " + song.getTitle());
+				else if (r.isHappy(song)) System.out.println("IS HAPPY: " + song.getTitle());
+				else if (r.isParty(song)) System.out.println("IS PARTY: " + song.getTitle());
+				System.out.println("");
 			}
 		} catch (EchoNestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 		//open session
 		//SingletonSession session = SingletonSession.getInstance();
