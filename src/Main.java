@@ -55,8 +55,9 @@ public class Main {
 				ArrayList<Song> playlist = r.createPlaylist(mood, 10);
 				System.out.println("--------------- Playlist " + mood + " ----------------");
 				for (Song song : playlist) {
-					System.out.println(song.getTitle());
+					System.out.println(song.getArtistName() + ": " + song.getTitle());
 				}
+				System.out.println("------------------------------------------------------");
 				user_input.nextLine();
 			} catch (EchoNestException e) {
 				// TODO Auto-generated catch block

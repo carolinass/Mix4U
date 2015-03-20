@@ -57,24 +57,22 @@ public class Recommender {
 			genres.add("folk");
 			genres.add("indie folk");
 			genres.add("soundtrack");
+			genres.add("electronic");
+			genres.add("blues");
 			while(playlist.size() < count){
 				random.nextInt(genres.size());
 				String genre1 = "";
 				String genre2 = "";
-				String genre3 = "";
-				while (genre1.equals(genre2) || genre1.equals(genre3) || genre2.equals(genre3)) {
+				while (genre1.equals(genre2)) {
 					genre1 = genres.get(random.nextInt(genres.size()));
 					genre2 = genres.get(random.nextInt(genres.size()));
-					genre3 = genres.get(random.nextInt(genres.size()));
 				}
 				
 				System.out.println(genre1);
 				System.out.println(genre2);
-				System.out.println(genre3);
 				
 				p.addGenre(genre1);
 				p.addGenre(genre2);
-				p.addGenre(genre3);
 				
 				topArtists = echo.topHotArtists(p);
 				
@@ -98,6 +96,7 @@ public class Recommender {
 			genres.add("indie pop");
 			genres.add("soundtrack");
 			genres.add("indie folk");
+			genres.add("rock");
 			
 			Random random = new Random();
 			
@@ -105,20 +104,16 @@ public class Recommender {
 				random.nextInt(genres.size());
 				String genre1 = "";
 				String genre2 = "";
-				String genre3 = "";
-				while (genre1.equals(genre2) || genre1.equals(genre3) || genre2.equals(genre3)) {
+				while (genre1.equals(genre2)) {
 					genre1 = genres.get(random.nextInt(genres.size()));
 					genre2 = genres.get(random.nextInt(genres.size()));
-					genre3 = genres.get(random.nextInt(genres.size()));
 				}
 				
 				System.out.println(genre1);
 				System.out.println(genre2);
-				System.out.println(genre3);
 				
 				p.addGenre(genre1);
 				p.addGenre(genre2);
-				p.addGenre(genre3);
 				
 				topArtists = echo.topHotArtists(p);
 				
@@ -149,20 +144,16 @@ public class Recommender {
 				random.nextInt(genres.size());
 				String genre1 = "";
 				String genre2 = "";
-				String genre3 = "";
-				while (genre1.equals(genre2) || genre1.equals(genre3) || genre2.equals(genre3)) {
+				while (genre1.equals(genre2)) {
 					genre1 = genres.get(random.nextInt(genres.size()));
 					genre2 = genres.get(random.nextInt(genres.size()));
-					genre3 = genres.get(random.nextInt(genres.size()));
 				}
 				
 				System.out.println(genre1);
 				System.out.println(genre2);
-				System.out.println(genre3);
 				
 				p.addGenre(genre1);
 				p.addGenre(genre2);
-				p.addGenre(genre3);
 				
 				topArtists = echo.topHotArtists(15);
 				
@@ -205,21 +196,14 @@ public class Recommender {
         // Set inputs
         fis.setVariable("danceability", song.getDanceability());
         fis.setVariable("energy", song.getEnergy());
-        // Evaluate
         fis.evaluate();
 
         // Show output variable's chart
         Variable mood = functionBlock.getVariable("mood");
-        //System.out.println("DEFUUUUZZ: " + mood.getDefuzzifier().defuzzify());
-        //JFuzzyChart.get().chart(tip, tip.getDefuzzifier(), true);
+        
 
 		return mood.getDefuzzifier().defuzzify();
 	}
-	/*
-	public boolean isBlue(Song song) throws EchoNestException{
-		if(getDefuzzfier(song) < 0.4) return true;
-		return false;
-	}*/
 	
 	public boolean isChill(Song song) throws EchoNestException{
 		double defuzz = getDefuzzfier(song);
