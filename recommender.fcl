@@ -13,14 +13,14 @@ FUZZIFY danceability			// Fuzzify input variable 'danceability'
 	TERM low := (0, 1) (0.2, 1) (0.4, 0); 
 	TERM medium_low := (0.3, 0) (0.4, 1) (0.55,0);
 	TERM medium_high := (0.4, 0) (0.55, 1) (0.7, 0);
-	TERM high := (0.55, 0) (0.7, 1) (1, 1);
+	TERM high := (0.7, 0) (0.8, 1) (1, 1);
 END_FUZZIFY
 
 FUZZIFY energy			// Fuzzify input variable 'energy'
 	TERM low := (0, 1) (0.2, 1) (0.4, 0); 
 	TERM medium_low := (0.3, 0) (0.4, 1) (0.55,0);
 	TERM medium_high := (0.4, 0) (0.55, 1) (0.7, 0);
-	TERM high := (0.55, 0) (0.7, 1) (1, 1);
+	TERM high := (0.7, 0) (0.8, 1) (1, 1);
 END_FUZZIFY
 
 DEFUZZIFY mood			// Defuzzify output variable 'mood'
