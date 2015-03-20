@@ -56,15 +56,15 @@ public class Recommender {
 
 		return mood.getDefuzzifier().defuzzify();
 	}
-	
+	/*
 	public boolean isBlue(Song song) throws EchoNestException{
 		if(getDefuzzfier(song) < 0.4) return true;
 		return false;
-	}
+	}*/
 	
 	public boolean isChill(Song song) throws EchoNestException{
 		double defuzz = getDefuzzfier(song);
-		if((defuzz > 0.3) && (defuzz < 0.5)) return true;
+		if(defuzz < 0.5) return true;
 		return false;
 	}
 	
