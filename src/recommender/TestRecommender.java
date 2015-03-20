@@ -7,11 +7,7 @@ import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 
-/**
- * Test parsing an FCL file
- * @author pcingola@users.sourceforge.net
- */
-public class TestTipper {
+public class TestRecommender {
     public static void main(String[] args) throws Exception {
         // Load from 'FCL' file
         String fileName = "recommender.fcl";

@@ -1,16 +1,4 @@
-/*
-	Example: A tip calculation FIS (fuzzy inference system)
-	Calculates tip based on 'servie' and 'food'
-
-	If you want to about this example (and fuzzy logic), please 
-	read Matlab's tutorial on fuzzy logic toolbox 
-	http://www.mathworks.com/access/helpdesk/help/pdf_doc/fuzzy/fuzzy.pdf
-
-									Pablo Cingolani 
-									pcingola@users.sourceforge.net
-*/
-
-FUNCTION_BLOCK recommender	// Block definition (there may be more than one block per file)
+FUNCTION_BLOCK recommender
 
 VAR_INPUT				// Define input variables
 	danceability : REAL;
@@ -21,26 +9,26 @@ VAR_OUTPUT				// Define output variable
 	mood : REAL;
 END_VAR
 
-FUZZIFY danceability			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+FUZZIFY danceability			// Fuzzify input variable 'danceability'
 	TERM low := (0, 1) (0.4, 0) ; 
 	TERM medium_low := (0.3, 0) (0.4, 1) (0.55,0);
 	TERM medium_high := (0.4, 0) (0.55, 1) (0.7, 0);
 	TERM high := (0.6, 0) (0.8, 1) (1, 1);
 END_FUZZIFY
 
-FUZZIFY energy			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+FUZZIFY energy			// Fuzzify input variable 'energy'
 	TERM low := (0, 1) (0.4, 0) ; 
 	TERM medium_low := (0.3, 0)(0.4, 1) (0.55,0);
 	TERM medium_high := (0.4, 0) (0.55, 1) (0.7, 0);
 	TERM high := (0.7, 0) (0.8, 1) (1, 1);
 END_FUZZIFY
 
-DEFUZZIFY mood			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+DEFUZZIFY mood			// Defuzzify output variable 'mood'
 	TERM blue := (0,1) (0.55,0);
 	TERM chill := (0.4,0) (0.45,1) (0.55,0);
 	TERM happy := (0.55,0) (0.6, 1) (0.7,0);
 	TERM party := (0.6,0) (0.7, 1) (1, 1);
-	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	METHOD : COG;		// Use centroid defuzzification method
 	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
 END_DEFUZZIFY
 

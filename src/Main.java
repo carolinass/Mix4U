@@ -17,10 +17,10 @@ import session.SingletonSession;
 public class Main {
 	
 	public static void main(String[] args) {
-		/*
+		
 		EchoNestAPI echon = new EchoNestAPI("23NNCDLPWYKIO3XNK");
 		ArtistParams p = new ArtistParams();
-        p.addGenre("pop");
+        p.addGenre("folk");
 		try {
 			System.out.println("Folk artists");
 			System.out.println(echon.topHotArtists(p));
@@ -35,17 +35,16 @@ public class Main {
 			System.out.println(madonna.getSimilar(10));
 			for (Song song : madonna.getSongs()) {
 				System.out.println(song.getTitle() + " - " + song.getDanceability() + " - " + song.getEnergy() + " - " + song.getLoudness());
-				if(song.getDanceability() < 0.7){
-				}
+				
 			}
 		} catch (EchoNestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		*/
+		
 		//open session
-		SingletonSession session = SingletonSession.getInstance();
+		//SingletonSession session = SingletonSession.getInstance();
 		//open db connection
 		//Login login = new Login();	
 			
