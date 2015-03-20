@@ -23,9 +23,49 @@ public class Recommender {
 		return echo;
 	}
 	
+	public double getDefuzzfier(Song song) throws EchoNestException{
+		String fileName = "recommender.fcl";
+        FIS fis = FIS.load(fileName,true);
+        
+        if( fis == null ) { 
+            System.err.println("Can't load file: '" + fileName + "'");
+            return -1;
+        }
+        
+        FunctionBlock functionBlock = fis.getFunctionBlock(null);
+
+        // Set inputs
+        fis.setVariable("danceability", song.getDanceability());
+        fis.setVariable("energy", song.getEnergy());
+        fis.evaluate();
+
+        // Show output variable's chart
+        Variable mood = functionBlock.getVariable("mood");
+        
+
+		return mood.getDefuzzifier().defuzzify();
+	}
+	
+	public boolean isChill(Song song) throws EchoNestException{
+		double defuzz = getDefuzzfier(song);
+		if(defuzz < 0.45) return true;
+		return false;
+	}
+	
+	public boolean isHappy(Song song) throws EchoNestException{
+		double defuzz = getDefuzzfier(song);
+		if( (defuzz >= 0.5) && (defuzz <= 0.7) ) return true;
+		return false;
+	}
+	
+	public boolean isParty(Song song) throws EchoNestException{
+		double defuzz = getDefuzzfier(song);
+		if( (defuzz >= 0.75) ) return true;
+		return false;
+	}
+	
 	public List<Artist> findArtist(String artist){
 		List<Artist> artists = new ArrayList<Artist>();
-		//http://developer.echonest.com/api/v4/artist/list_terms?api_key=23NNCDLPWYKIO3XNK&format=json&type=style
 		try {
 			artists = echo.searchArtists(artist);
 			System.out.println(artists.get(0).getName());
@@ -41,16 +81,6 @@ public class Recommender {
 		List<Artist> topArtists = new ArrayList<Artist>();
 		ArrayList<Song> playlist = new ArrayList<Song>();
 		ArrayList<String> genres = new ArrayList<String>();
-		
-		//genres.add("minimal");
-		//genres.add("electronic");
-		//genres.add("indie pop");
-		//genres.add("ambient");
-		//genres.add("folk");
-		//genres.add("indie folk");
-		//genres.add("soundtrack");
-		//genres.add("blues");
-		
 		
 		if(mood.equalsIgnoreCase("chill")){
 			Random random = new Random();
@@ -96,7 +126,7 @@ public class Recommender {
 			genres.add("indie pop");
 			genres.add("soundtrack");
 			genres.add("indie folk");
-			genres.add("rock");
+			genres.add("country");
 			
 			Random random = new Random();
 			
@@ -133,9 +163,10 @@ public class Recommender {
 				}
 			}
 		}else{
-			genres.add("indie pop");
-			genres.add("eletronic");
+			genres.add("electronic");
 			genres.add("pop");
+			genres.add("techno");
+			genres.add("house");
 			
 			Random random = new Random();
 			
@@ -155,7 +186,7 @@ public class Recommender {
 				p.addGenre(genre1);
 				p.addGenre(genre2);
 				
-				topArtists = echo.topHotArtists(15);
+				topArtists = echo.topHotArtists(p);
 				
 				int count_artist = 0;
 				while((playlist.size() < count) && (count_artist < 15)){
@@ -182,77 +213,5 @@ public class Recommender {
 		return playlist;
 	}
 	
-	public double getDefuzzfier(Song song) throws EchoNestException{
-		String fileName = "recommender.fcl";
-        FIS fis = FIS.load(fileName,true);
-        
-        if( fis == null ) { 
-            System.err.println("Can't load file: '" + fileName + "'");
-            return -1;
-        }
-        
-        FunctionBlock functionBlock = fis.getFunctionBlock(null);
-
-        // Set inputs
-        fis.setVariable("danceability", song.getDanceability());
-        fis.setVariable("energy", song.getEnergy());
-        fis.evaluate();
-
-        // Show output variable's chart
-        Variable mood = functionBlock.getVariable("mood");
-        
-
-		return mood.getDefuzzifier().defuzzify();
-	}
 	
-	public boolean isChill(Song song) throws EchoNestException{
-		double defuzz = getDefuzzfier(song);
-		if(defuzz < 0.5) return true;
-		return false;
-	}
-	
-	public boolean isHappy(Song song) throws EchoNestException{
-		double defuzz = getDefuzzfier(song);
-		if( (defuzz >= 0.5) && (defuzz <= 0.7) ) return true;
-		return false;
-	}
-	
-	public boolean isParty(Song song) throws EchoNestException{
-		double defuzz = getDefuzzfier(song);
-		if( (defuzz >= 0.75) ) return true;
-		return false;
-	}
-	
-	/*
-	public boolean isBlue(Song song) throws EchoNestException{
-		if (isLow(song.getDanceability()) &&  isLow(song.getEnergy())){
-			return true;
-		}else if (isMediumLow(song.getDanceability()) &&  isLow(song.getEnergy())){
-			return true;
-		}else
-		return false;
-	}
-	
-	
-	public boolean isLow(double i){
-		if( (i >= 0) && (i <= 0.4)) return true;
-		return false;
-	}
-	
-	public boolean isMediumLow(double i){
-		if( (i > 0.4) && (i <= 0.55)) return true;
-		return false;
-	}
-	
-	public boolean isMediumHigh(double i){
-		if( (i > 0.55) && (i <= 0.7)) return true;
-		return false;
-	}
-	
-	public boolean isHigh(double i){
-		if(i > 7) return true;
-		return false;
-	}
-	
-	*/
 }
